@@ -1,0 +1,49 @@
+<app-header-landing></app-header-landing>
+<main class="main">
+    <div class="containerForm">
+        <h2>¡Solicita un nuevo viaje!</h2>
+        <form class="formSignUp" [formGroup]="registerForm" #formDirective=ngForm (ngSubmit)="onSubmit(formDirective)">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Marca: </mat-label>
+                    <input name="marca" matInput formControlName="marca" required>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Modelo: </mat-label>
+                    <input name="modelo" type="text" matInput formControlName="modelo" required>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Falla: </mat-label>
+                    <input name="falla" type="text" matInput formControlName="falla" required>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Dirección</mat-label>
+                    <input name="direccion" matInput formControlName="direccion" required>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha</mat-label>
+                    <input name="fecha" matInput formControlName="fecha" required>
+                </mat-form-field>
+            </p>
+            <!-- <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Horario</mat-label>
+                    <input name="horario" matInput formControlName="horario" required>
+                </mat-form-field>
+            </p> -->
+            <div class="footerForm">
+                <button type="submit" value="Update" mat-raised-button color="primary">Solicitar</button>
+            </div>
+        </form>
+        
+    </div>
+</main>
+<app-footer-landing></app-footer-landing>

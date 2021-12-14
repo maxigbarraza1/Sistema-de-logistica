@@ -1,0 +1,31 @@
+<main class="main">
+    <div class="container" id="logoContainer">
+        <img src="../assets/logo.svg"> 
+    </div>
+
+    <div class="container" id="form-container">
+        <h2>¡Inicia sesion!</h2>
+        <form class="formSignUp" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email: </mat-label>
+                    <input name="email" type="email" matInput formControlName="email" required>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Contraseña: </mat-label>
+                    <input name="password" type="password" matInput formControlName="password" required>
+                </mat-form-field>
+            </p>
+            <div class="footerForm">
+                <button type="submit" mat-raised-button color="primary">Iniciar Sesion</button>
+                <a id="hasAccountText" routerLink="../forgot" >¿Olvidaste tu contraseña? <span>Haz click aquí</span></a>
+            </div>
+        </form>
+    </div>
+    <div class="container" id="img-container">
+        <img src="../assets/loginArt.svg" alt="">
+    </div>
+    <app-footer></app-footer>
+</main>

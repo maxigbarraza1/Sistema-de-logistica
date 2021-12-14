@@ -1,0 +1,38 @@
+@mixin medium 
+  @media only screen and (min-width: 769px) 
+    @content
+  
+
+@mixin large 
+  @media only screen and (min-width: 1200px) 
+    @content
+
+.footer
+    position: absolute
+    bottom: 0
+    right: 0
+    width: 100%
+    background: rgba(12, 91, 168, 0.8)
+    border-radius: 200px 200px 0 0
+    overflow: hidden
+    .footer-container
+        display: flex
+        align-items: center
+        margin: 0 12vw
+        height: 10vh
+        text-align: center
+        .footer-icon
+            margin-top: 3vh
+            p
+                color: #ffff
+        #home-icon
+            margin-left: 0
+            margin-right: auto
+        #viajes-icon
+            margin-right: auto
+            margin-left: auto
+        #historial-icon
+            margin-right: 0
+            margin-left: auto
+
+

@@ -1,0 +1,35 @@
+<main class="main">
+    <app-header-landing></app-header-landing>
+    <div class="home-container">
+        <div class="text-container" *ngIf="account.isLoggedIn">
+            <h1>¡Bienvenido {{this.usuario}}!</h1>
+            <h3>¡Solicita un nuevo viaje o consulta el <br>estado de tus viajes!</h3>
+            <div class="homeButtons">
+                <button mat-button id="homeBtnLeft">
+                    <span>Solicitar viaje</span>
+                </button>
+                <button mat-button id="homeBtnRight">
+                    <span>Estado viaje</span>
+                </button>
+            </div>
+        </div>
+        <div class="text-container" *ngIf="!account.isLoggedIn" >
+            <h1>¡Bienvenido a TODO-IT!</h1>
+            <h3 id="textWithoutLogged">¡Inicia sesion o registrate para poder
+                disfrutar de nuestro servicio!
+            </h3>
+            <div class="homeButtons">
+                <button mat-button id="homeBtnLeft" [routerLink]="['/login']" routerLinkActive="router-link-active" mat-raised-button>
+                    <span>Inicia sesion</span>
+                </button>
+                <button mat-button id="homeBtnRight">
+                    <span>Registrate</span>
+                </button>
+            </div>
+        </div>
+        <div class="homeImage">
+            <img src="./assets/arts/home.svg" alt="">
+        </div>
+    </div>
+    <app-footer-landing></app-footer-landing>
+</main>

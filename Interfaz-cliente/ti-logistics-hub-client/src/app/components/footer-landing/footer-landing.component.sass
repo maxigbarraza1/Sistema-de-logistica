@@ -1,0 +1,32 @@
+@mixin medium 
+  @media only screen and (min-width: 769px) 
+    @content
+  
+
+@mixin large 
+  @media only screen and (min-width: 1200px) 
+    @content
+
+.footer
+    position: absolute
+    bottom: 0
+    right: 0
+    width: 100%
+    background: rgba(12, 91, 168, 0.8)
+    border-radius: 200px 200px 0 0
+    @include large
+        
+    
+    .footer-container
+        align-items: center
+        display: flex
+        margin: 0 10vw
+        height: 10vh
+        .footerFbooklogo
+            margin-right: 0%
+            margin-left: auto
+        .footerInstgLogo
+            margin: auto
+        .footerWspLogo
+            margin-left: 0%
+            margin-right: auto

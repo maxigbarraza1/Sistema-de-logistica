@@ -1,0 +1,26 @@
+<main class="main">
+    <app-header-landing></app-header-landing>
+    <div class="containerForm">
+        <h2>¡Inicia sesion!</h2>
+        <form class="formSignUp" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email: </mat-label>
+                    <input name="email" type="email" matInput formControlName="email" required>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Contraseña: </mat-label>
+                    <input name="password" type="password" matInput formControlName="password" required>
+                </mat-form-field>
+            </p>
+            <div class="footerForm">
+                <button type="submit" value="Update" mat-raised-button color="primary">Iniciar Sesion</button>
+                <a href="" id="hasAccountText">¿No tienes una cuenta? <span>Registrate</span></a>
+            </div>
+        </form>
+        
+    </div>
+    <app-footer-landing></app-footer-landing>
+</main>

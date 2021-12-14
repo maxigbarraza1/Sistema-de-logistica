@@ -1,0 +1,30 @@
+<main class="main">
+    <header class="header">
+        <div class="container" id="logo-container">
+            <img src="../assets/logo.svg"> 
+        </div>
+        <div class="container" id="btn-container">
+            <button mat-raised-button>
+                <span (click)="logout()">Cerrar sesion</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container" id="content">
+        <h2>Lista de viajes</h2>
+        <div class="vista-viajes">
+            <mat-form-field appearance="fill">
+                <mat-label>Selecciona una opcion</mat-label>
+                <mat-select [(value)]="selectOption">
+                    <mat-option value="1" (click)="changeOption(1)">Viajes disponibles</mat-option>
+                    <mat-option value="2" (click)="changeOption(2)">Viajes aceptados</mat-option>
+                    <mat-option value="3" (click)="changeOption(3)">Viajes en curso</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <app-viaje [disponibles]="disponibles" [aceptados]="aceptados" [opcion]="selectOption"></app-viaje>
+            </div>
+        </div>
+    </div>
+</main>
+<app-footer></app-footer>

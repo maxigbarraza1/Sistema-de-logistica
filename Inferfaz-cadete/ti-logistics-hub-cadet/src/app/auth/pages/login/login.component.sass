@@ -1,0 +1,59 @@
+.main
+    width: 100%
+    height: 100vh
+    background: linear-gradient(360deg, #FF512F 0%, #F09819 100%)
+    display: flex
+    flex-direction: column
+    align-items: center
+
+    #logoContainer
+        margin-top: 2vh
+        margin-bottom: 2vh
+        img
+            width: 90px
+            height: 90px
+    #form-container
+        position: relative
+        h2
+            color: #ffff
+            text-align: center
+            font-weight: 900
+            line-height: 41px
+            font-size: 30px
+
+        .formSignUp
+            text-align: center
+            p
+                position: relative
+                mat-form-field
+                    width: 100%
+                    margin-bottom: -4vh
+            .footerForm
+                position: absolute
+                display: flex
+                flex-direction: column
+                align-items: center
+                z-index: 100
+                button
+                a
+                    margin-top: 2vh
+                    margin-bottom: 4vh
+    #img-container
+        display: flex
+        overflow: hidden
+        img
+            position: absolute
+            left: 0
+            bottom: 0
+            margin-bottom: 4vh
+            width: 100vw
+            height: 40vh        
+            z-index: 10
+.container
+    margin: 0 5vh
+
+    
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline 
+  background-color: white
+  border-radius: 5px

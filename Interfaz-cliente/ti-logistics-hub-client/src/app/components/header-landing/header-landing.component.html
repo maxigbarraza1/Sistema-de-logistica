@@ -1,0 +1,42 @@
+<header class="header-container">
+    <nav class="nav-container">
+        <div class="navLogo">
+            <img src="./assets/logo.svg" alt="">
+        </div>
+        <button mat-button class="menu-button" [matMenuTriggerFor]="menu">
+            <mat-icon id="iconMenu">menu</mat-icon>
+        </button>
+        <mat-menu class="menuItems" #menu="matMenu" xPosition="after">
+            <button mat-menu-item (click)="goToPage('inicio')">
+                <span class="btn-list">Inicio</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="goToPage('login')"*ngIf="!account.isLoggedIn" >
+                <span class="btn-list">Iniciar Sesion</span>
+            </button>
+            <button mat-menu-item (click)="goToPage('solicitar-viaje')"*ngIf="account.isLoggedIn" >
+                <span class="btn-list">Solicitar un nuevo viaje</span>
+            </button>
+            <mat-divider *ngIf="account.isLoggedIn"></mat-divider>
+            <button mat-menu-item (click)="goToPage('estado-viaje')"*ngIf="account.isLoggedIn">
+                <span class="btn-list">Estado de tus viajes</span>
+            </button>
+            <mat-divider *ngIf="account.isLoggedIn"></mat-divider>
+            <button mat-menu-item (click)="goToPage('historial')"*ngIf="account.isLoggedIn" >
+                <span class="btn-list">Historial</span>
+            </button>
+            <mat-divider *ngIf="account.isLoggedIn"></mat-divider>
+            <button mat-menu-item (click)="goToPage('inicio')"*ngIf="account.isLoggedIn" (click)="logout()">
+                <span class="btn-list">Cerrar sesion</span>
+            </button>
+        </mat-menu>
+        <div class="menularge">
+            <a routerLink="" mat-raised-button color="primary" *ngIf="account.isLoggedIn" (click)="logout()">Cerrar Sesion</a>
+            <a [routerLink]="['/historial']" routerLinkActive="router-link-active" mat-button *ngIf="account.isLoggedIn">Historial</a>
+            <a [routerLink]="['/estado-viaje']" routerLinkActive="router-link-active" mat-button *ngIf="account.isLoggedIn">Estado de viajes</a>
+            <a [routerLink]="['/solicitar-viaje']" routerLinkActive="router-link-active" mat-button *ngIf="account.isLoggedIn">Solicitar viaje</a>
+            <a [routerLink]="['/login']" routerLinkActive="router-link-active" mat-raised-button color="primary" *ngIf="!account.isLoggedIn">Iniciar Sesion</a>
+            <a [routerLink]="['/inicio']" routerLinkActive="router-link-active" mat-button>Inicio</a>
+        </div>
+    </nav>
+</header>

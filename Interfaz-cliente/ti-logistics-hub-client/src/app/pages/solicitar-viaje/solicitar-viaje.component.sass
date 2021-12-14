@@ -1,0 +1,63 @@
+//DEFS
+@mixin medium 
+  @media only screen and (min-width: 769px) 
+    @content
+  
+
+@mixin large 
+  @media only screen and (min-width: 1024px) 
+    @content
+//
+//STYLES
+.main
+  display: flex
+  width: 100%
+  height: 100%
+  background: linear-gradient(360deg, #FF512F 0%, #F09819 100%)
+  align-items: center
+  .containerForm
+
+    display: flex
+    flex-direction: column
+    margin: 12vh auto auto auto
+    @include large
+        margin: 15vh auto auto auto
+
+    h2
+      text-align: center
+      font-size: 2rem
+      font-weight: bold
+      margin-bottom: 3vh
+      color: #0C5BA8
+    .formSignUp
+      text-align: center
+      p
+        margin-bottom: 0
+        mat-form-field
+          width: 100%
+          height: 9.5vh
+          @include large
+            height: 9vh
+            width: 50vw
+          
+        
+      .footerForm
+        display: flex
+        margin-top: 1.5vh
+        @include large
+            margin-top: 3vh
+        button
+          margin: auto
+          height: 10vh
+          font-size: 1.2rem
+          border-radius: 20px
+          width: 50%
+          @include large
+            height: 8vh
+            width: 40%
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline 
+  background-color: white
+  border-radius: 5px
+
+    

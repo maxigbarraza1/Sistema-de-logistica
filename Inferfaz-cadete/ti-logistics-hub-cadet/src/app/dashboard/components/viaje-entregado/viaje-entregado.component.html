@@ -1,0 +1,16 @@
+<cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+    <div class="main" *cdkVirtualFor="let item of historial">
+        <mat-card class="travel-card" class="example-item">
+            <mat-card-content>
+                <p>Direccion: {{item.travelEquipmentDTOs[item.travelEquipmentDTOs.length-1].equipment.cliente.address}}</p>
+                <p>Hora: {{item.travelEquipmentDTOs[item.travelEquipmentDTOs.length-1].operationDate | date:'medium'}}</p>
+                <p>Equipo: {{(item.travelEquipmentDTOs[item.travelEquipmentDTOs.length-1].equipment.mark+' '+
+                              item.travelEquipmentDTOs[item.travelEquipmentDTOs.length-1].equipment.model )}}</p>
+                <p>Estado del viaje <br> {{estadoDelEnvio[item.lastStatusTravel-1]+"-"+estadoEquipo(item.lastStatusTravel-1)}}</p>
+                <p *ngIf="estadoEntrega(item)==3" id="p-entregado">Entregado( esperando confirmacion )</p>
+                <p *ngIf="estadoEntrega(item)==2" id="p-recibido">Entregado al laboratorio</p>
+                <p *ngIf="estadoEntrega(item)==1" id="p-recibido">Recibido por el clente</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</cdk-virtual-scroll-viewport>

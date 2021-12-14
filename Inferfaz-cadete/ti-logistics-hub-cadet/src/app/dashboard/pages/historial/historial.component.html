@@ -1,0 +1,20 @@
+<main class="main">
+    <header class="header">
+        <div class="container" id="logo-container">
+            <img src="../assets/logo.svg"> 
+        </div>
+        <div class="container" id="btn-container">
+            <button mat-raised-button>
+                <span (click)="logout()">Cerrar sesion</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container" id="content">
+        <h2>Historial de viajes</h2>
+        <div class="div">
+            <app-viaje-entregado [historial]="historial"></app-viaje-entregado>
+        </div>
+    </div>
+</main>
+<app-footer></app-footer>
