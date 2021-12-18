@@ -11,7 +11,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatTabsModule} from '@angular/material/tabs'
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -27,6 +28,7 @@ const uiModules=[
   MatTableModule,
   MatPaginatorModule,
   MatTabsModule,
+  MatDialogModule,
 ]
 
 @NgModule({

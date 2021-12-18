@@ -5,28 +5,28 @@
             <img src="../../../../assets/logo/logo.svg" alt="">
         </div>
         <div class="nav-options">
-            <div class="nav-option">
+            <div class="nav-option" (click)="goToPage('../dashboard/home')">
                 <img src="../../../../assets/icons/dashboard/home-icon.svg" alt="">
                 <p>Inicio</p>
             </div>
-            <div class="nav-option">
+            <div class="nav-option" (click)="goToPage('../dashboard/registro')">
                 <img src="../../../../assets/icons/dashboard/registro-icon.svg" alt="">
                 <p>Registro</p>
             </div>
-            <div class="nav-option">
+            <div class="nav-option" (click)="goToPage('../dashboard/viajes')">
                 <img src="../../../../assets/icons/dashboard/viajes-icon.svg" alt="">
                 <p>Viajes</p>
             </div>
-            <div class="nav-option">
+            <div class="nav-option" (click)="goToPage('../dashboard/historial')">
                 <img src="../../../../assets/icons/dashboard/historial-icon.svg" alt="">
                 <p>Historial</p>
             </div>
-            <div class="nav-option">
+            <div class="nav-option" (click)="goToPage('../dashboard/listas')">
                 <img src="../../../../assets/icons/dashboard/listas-icon.svg" alt="">
                 <p>Listas</p>
             </div>
             <div class="nav-option-logout">
-                <button mat-flat-button color="warn">Cerrar sesión</button>
+                <button mat-flat-button color="warn" (click)="cerrarSesion()">Cerrar sesión</button>
             </div>
         </div>
     </div>

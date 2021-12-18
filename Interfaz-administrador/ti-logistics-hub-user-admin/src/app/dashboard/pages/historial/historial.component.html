@@ -4,8 +4,8 @@
     
     <div class="content-container">
         <div class="text-container">
-            <h2>Lista de viajes</h2>
-            <p>Aqui puedes hacer tal cosita</p>
+            <h2>Historial de viajes</h2>
+            <p>Detalle de los viajes que aun no fueron finalizados</p>
         </div>
         <div class="content">
             <div class="mat-elevation-z8">
@@ -33,7 +33,7 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
                 </table>
-                <mat-paginator [pageSizeOptions]="[10, 20, 25 ,50 , 100]" 
+                <mat-paginator [pageSizeOptions]="[9, 20, 25 ,50 , 100]" 
                                showFirstLastButtons 
                                aria-label="Select page of users">
                 </mat-paginator>

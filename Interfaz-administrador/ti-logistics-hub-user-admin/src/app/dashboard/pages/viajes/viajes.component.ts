@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { forkJoin, map } from 'rxjs';
 import { ModifyTravel } from '../../models/viajes/modifyTravel.model';
+import Swal from 'sweetalert2';
 
 const estadoDelEnvio=['Pend. a retirar','Retiro asignado','Retirado',
                     'Pend. de reparacion','Reparado','Entrega asignada',
@@ -121,8 +122,18 @@ export class ViajesComponent implements AfterViewInit,OnInit {
     console.log(modificacion);
     this.dataService.modificarViaje(modificacion).subscribe(resp=>{
       console.log("Viaje modificado con exito");
+      Swal.fire({
+        icon: 'success',
+        title: '¡Estado de viaje modificado con exito!',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },error=>{
-      //hacer un sweet alert con el error
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '¡No se pudo realizar el cambio de estado!',
+      })
     }
     );
   }

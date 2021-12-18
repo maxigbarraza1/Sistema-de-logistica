@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/bfore-log/services/auth.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router, private authService:AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  goToPage(pageName:string):void{
+    this.router.navigate([`${pageName}`]);
+  }
+
+  cerrarSesion():void{
+    localStorage.clear();
+    this.router.navigate(['home']);
+    this.authService.userIsLoged=false;
   }
 
 }

@@ -4,7 +4,7 @@ import { Vehicle } from './vehicle.model';
 export interface NewUser{
     id:           number;
     email:        string;
-    fullName:     string;
+    fullName:     string | " ";
     address:      string;
     cellPhone:    string;
     isAccepted:   boolean;

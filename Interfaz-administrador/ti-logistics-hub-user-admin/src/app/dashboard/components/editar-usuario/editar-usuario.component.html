@@ -1,0 +1,61 @@
+<h1>Editar usuario</h1>
+<div mat-dialog-content>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Selecciona un tipo usuario</mat-label>
+                <mat-select formControlName="user">
+                    <mat-option value=0 (click)="cambiarTipoUsuario(0)">Cadete</mat-option>
+                    <mat-option value=1 (click)="cambiarTipoUsuario(1)">Cliente</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
+        <p class="form-field">
+            <mat-form-field appearance="outline" >
+                <mat-label>Nombre completo</mat-label>
+                <input type="text" matInput formControlName="fullname">
+            </mat-form-field>
+        </p>
+        <p class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="mail">
+            </mat-form-field>
+        </p>
+        <p class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input type="text" matInput formControlName="password">
+            </mat-form-field>
+        </p>
+        <p class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Dirección</mat-label>
+                <input type="text" matInput formControlName="address">
+            </mat-form-field>
+        </p>
+        <p class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Telefono</mat-label>
+                <input type="text" matInput formControlName="phone">
+            </mat-form-field>
+        </p>
+        <p *ngIf="tipoUsuario==0" class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Selecciona un vehiculo</mat-label>
+                <mat-select formControlName="vehicle">
+                    <mat-option value=1>Motocicleta</mat-option>
+                    <mat-option value=2>Automovil</mat-option>
+                    <mat-option value=3>Bicicleta</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
+        <!-- <div class="footerForm">
+            <button type="submit" mat-raised-button color="primary">Cargar usuario</button>
+        </div> -->
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" cdkFocusInitial>Modificar</button>
+</div>
