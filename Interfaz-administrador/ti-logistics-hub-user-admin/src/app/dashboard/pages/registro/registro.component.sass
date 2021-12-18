@@ -1,0 +1,47 @@
+.main
+    width: 100%
+    height: 100vh
+    background: linear-gradient(360deg, #FF512F 0%, #F09819 100%)
+    // display: flex
+    
+    app-nav-menu
+        position: absolute
+        left: 0
+        top: 0
+        width: 100%
+    
+    .content-container
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        height: 100vh
+        text-align: center
+        .text-container
+            h2
+                font-size: 2.5rem
+                font-weight: bold
+                color: #30373f
+            p
+                font-size: 1.8rem
+                font-weight: 600
+                color: #fff
+                margin: 6vh 8vw
+        .form-container
+            form
+                p
+                    margin-top: -2vh
+                    mat-form-field
+                        width: 35vw
+                    mat-label
+                        font-size: 1.2rem
+                .footerForm
+                    button
+                        width: 20vw
+                        height: 8vh
+                        font-size: 1.2rem
+                        border-radius: 20px
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline 
+  background-color: #f2f2f2
+  border-radius: 5px

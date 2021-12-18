@@ -1,0 +1,23 @@
+<div class="main">
+
+    <div class="art-container">
+      <!-- <img src="../../../../assets/logo/logo.svg" alt="" id="logo"> -->
+      <img src="../../../../assets/arts/forgot/admin.svg" alt="">
+    </div>
+  
+    <div class="forgot-container">
+      <h2>¡Recuperar cuenta!</h2>
+      <p id="text-top">¡Ingresa tu email! En breve te enviaremos un correo indicando tu nueva contraseña.</p>
+      <form class="formForgot" >
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Email: </mat-label>
+                <input name="email" type="email" matInput required>
+            </mat-form-field>
+        </p>
+        <div class="footerForm">
+            <button (click)="onSubmit()" type="submit" mat-raised-button color="primary">Solicitar recuperación</button>
+        </div>
+    </form>
+    </div>
+  </div>

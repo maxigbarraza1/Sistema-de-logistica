@@ -1,0 +1,32 @@
+<div class="main">
+  <div class="logo-container">
+    <img src="../../../../assets/logo/logo.svg" alt="">
+    <h2>Panel de administración</h2>
+  </div>
+
+  <div class="line-container">
+
+  </div>
+
+  <div class="login-container">
+    <h2>¡Inicia sesión!</h2>
+    <form class="formSignUp" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+      <p>
+          <mat-form-field appearance="outline">
+              <mat-label>Email: </mat-label>
+              <input name="email" type="email" matInput formControlName="email" required>
+          </mat-form-field>
+      </p>
+      <p>
+          <mat-form-field appearance="outline">
+              <mat-label>Contraseña: </mat-label>
+              <input name="password" type="password" matInput formControlName="password" required>
+          </mat-form-field>
+      </p>
+      <div class="footerForm">
+          <button type="submit" mat-raised-button color="primary">Iniciar Sesion</button>
+          <a id="hasAccountText" routerLink="../forgot" >¿Olvidaste tu contraseña? <strong>Haz click aquí</strong></a>
+      </div>
+  </form>
+  </div>
+</div>

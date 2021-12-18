@@ -1,0 +1,78 @@
+<main class="main">
+    <app-nav-menu></app-nav-menu>
+
+    <div class="content-container">
+        <div class="text-container">
+            <h2>Formulario de registro</h2>
+            <p>¡Aqui puedes dar de alta o modificar un usuario tipo: Cadete o Cliente!</p>
+        </div>
+        <div class="form-container">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Selecciona un tipo usuario</mat-label>
+                        <mat-select formControlName="user">
+                            <mat-option value=1>Cadete</mat-option>
+                            <mat-option value=2>Cliente</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre completo</mat-label>
+                        <input type="text" matInput formControlName="fullname">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput formControlName="mail">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input type="text" matInput formControlName="password">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Dirección</mat-label>
+                        <input type="text" matInput formControlName="address">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefono</mat-label>
+                        <input type="text" matInput formControlName="phone">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Selecciona un rol</mat-label>
+                        <mat-select formControlName="rol">
+                            <mat-option value=0>Cadete</mat-option>
+                            <mat-option value=1>Usuario final</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <!-- Habilitar este campo solo si el usuario es un cadete -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Selecciona un vehiculo</mat-label>
+                        <mat-select formControlName="vehicle">
+                            <mat-option value=1>Motocicleta</mat-option>
+                            <mat-option value=2>Automovil</mat-option>
+                            <mat-option value=3>Bicicleta</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </p>
+                <div class="footerForm">
+                    <button type="submit" mat-raised-button color="primary">Cargar usuario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- <p>registro works!</p> -->

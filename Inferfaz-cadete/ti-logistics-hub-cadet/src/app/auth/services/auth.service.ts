@@ -9,7 +9,7 @@ import { User } from '../models/intf_user';
 })
 export class AuthService {
   public isLoggedIn=false;
-  constructor(private http:HttpClient, private router:Router) { }
+  constructor(private http:HttpClient) { }
 
   login(username:string,password:string): Observable<User>{
     return this.http.get<User>("api/Login?email="+username+"&password="+password);
