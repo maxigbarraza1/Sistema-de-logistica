@@ -12,8 +12,8 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Selecciona un tipo usuario</mat-label>
                         <mat-select formControlName="user">
-                            <mat-option value=1>Cadete</mat-option>
-                            <mat-option value=2>Cliente</mat-option>
+                            <mat-option value=0 (click)="changeUserOption(0)">Cadete</mat-option>
+                            <mat-option value=1 (click)="changeUserOption(1)">Cliente</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </p>
@@ -47,17 +47,7 @@
                         <input type="text" matInput formControlName="phone">
                     </mat-form-field>
                 </p>
-                <p>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Selecciona un rol</mat-label>
-                        <mat-select formControlName="rol">
-                            <mat-option value=0>Cadete</mat-option>
-                            <mat-option value=1>Usuario final</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </p>
-                <p>
-                    <!-- Habilitar este campo solo si el usuario es un cadete -->
+                <p *ngIf="userOption==0">
                     <mat-form-field appearance="outline">
                         <mat-label>Selecciona un vehiculo</mat-label>
                         <mat-select formControlName="vehicle">

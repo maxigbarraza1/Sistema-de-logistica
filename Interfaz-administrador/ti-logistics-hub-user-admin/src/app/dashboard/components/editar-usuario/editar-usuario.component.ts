@@ -23,8 +23,21 @@ const vehiculos=[]=[
 })
 export class EditarUsuarioComponent implements OnInit {
 
-  tipoUsuario:number=0;
+  public tipoUsuario:number=0;
 
+  public usuario:NewUser={
+    id:           0,
+    email:        " ",
+    fullName:     " ",
+    address:      " ",
+    cellPhone:    " ",
+    isAccepted:   true,
+    isDeleted:    false,
+    observations: " ",
+    password:     " ",
+    rol:          {id:0,name:" ", isDeleted:0},
+    vehicle:     null,
+  }
   userForm= new FormGroup({
     user: new FormControl('',[Validators.required]),
     fullname: new FormControl('',[Validators.required,Validators.minLength(3)]),
@@ -59,8 +72,7 @@ export class EditarUsuarioComponent implements OnInit {
     usuarioModificado.vehicle=null;
     if(usuarioModificado.rol==roles[0])
       usuarioModificado.vehicle=vehiculos[this.userForm.value.vehicle-1];
-    console.log("Los datos del usuario modificado son: ")
-    console.log(usuarioModificado);
+    this.usuario=usuarioModificado;
     return usuarioModificado;
   }
   
@@ -75,7 +87,6 @@ export class EditarUsuarioComponent implements OnInit {
           timer: 1500
         })
         this.onNoClick();
-        console.log("Usuario enviado con exito");
       }
     )
   }

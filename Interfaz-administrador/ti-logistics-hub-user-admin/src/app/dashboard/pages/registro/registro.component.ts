@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/register/register.service';
 import { NewUser } from '../../models/register/registerUser.model';
+import Swal from 'sweetalert2';
 
 
 const roles=[]=[
@@ -26,6 +27,8 @@ const vehiculos=[]=[
 
 
 export class RegistroComponent implements OnInit {
+
+  public userOption:number=0;
 
   userForm= new FormGroup({
     user: new FormControl('',[Validators.required]),
@@ -67,21 +70,33 @@ export class RegistroComponent implements OnInit {
     nuevoUsuario.password=this.userForm.value.password;
     nuevoUsuario.address=this.userForm.value.address;
     nuevoUsuario.cellPhone=this.userForm.value.phone as string;
-    nuevoUsuario.rol=roles[this.userForm.value.rol];
+    nuevoUsuario.rol=roles[this.userForm.value.user];
     nuevoUsuario.vehicle=null;
     if(nuevoUsuario.rol==roles[0])
       nuevoUsuario.vehicle=vehiculos[this.userForm.value.vehicle-1];
-    console.log("Los datos del nuevo usuario son: ")
-    console.log(nuevoUsuario);
     return nuevoUsuario;
   }
 
   onSubmit():void{
     this.registerService.setUser(this.createNewUser()).subscribe(
       resp=>{
-        console.log("Usuario enviado con exito");
-      }
-    )
+        Swal.fire({
+          icon: 'success',
+          title: 'El usuario fue registrado exitosamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      },error=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡No se pudo realizar la operacion de registro!',
+        })
+      })
+  }
+
+  changeUserOption(param:number):void{
+    this.userOption=param;
   }
 
 }

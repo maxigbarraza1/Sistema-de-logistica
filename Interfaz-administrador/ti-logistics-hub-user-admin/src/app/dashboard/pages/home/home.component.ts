@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
   cerrarSesion():void{
     localStorage.clear();
     this.router.navigate(['home']);
-    this.authService.userIsLoged=false;
   }
 
 }

@@ -27,35 +27,62 @@ export interface rowData{
   styleUrls: ['./viajes.component.sass']
 })
 export class ViajesComponent implements AfterViewInit,OnInit {
+
   displayedColumns: string[] = ['cliente','direccion','actual','estado'];
   dataSource:MatTableDataSource<rowData>;
-
   @ViewChild(MatPaginator) paginator:any;
 
   public data:Viaje[]=[];
   public datosTabla:rowData[]=[];
 
+  //Variables que ayudan a interactuar con el HTML
   public selectOption:number=1;
   public travelOption:number=-1;
 
   constructor(private dataService:DataService) {
-    // this.ngOnInit();
     this.dataSource = new MatTableDataSource(this.datosTabla);
     this.dataSource.paginator=this.paginator;
   }
 
-
-  ngAfterViewInit(): void {
-      this.dataSource.paginator = this.paginator;
-  }
-
   changeOption(param:number){
     this.selectOption=param;
-    this.ngOnInit();
+    this.actualizarDatos();
+  }
+
+  cambiarEstado(param:number, data:rowData){
+    this.travelOption=param;
+    this.modificarEstado(data);
+    this.actualizarDatos();
+  }
+
+  modificarEstado(param:rowData){
+    let cadete=Number(prompt("Ingrese el id del cadete a asignar", "0 si no posee cadete"));
+    let modificacion:ModifyTravel={
+      idViaje:param.idViaje,
+      newStatusTravel:this.travelOption,
+      userOperation:1,
+      idCadete:cadete,
+      isReasigned:false,
+      observations:"El administrador ha modificado este viaje",
+    }
+    this.dataService.modificarViaje(modificacion).subscribe(resp=>{
+      Swal.fire({
+        icon: 'success',
+        title: '¡Estado de viaje modificado con exito!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    },error=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '¡No se pudo realizar el cambio de estado!',
+      })
+    }
+    );
   }
   
-
-  ngOnInit(): void {
+  actualizarDatos():void{
     let estado1=this.dataService.get(1,1);
     let estado2=this.dataService.get(1,2);
     let estado3=this.dataService.get(1,3);
@@ -76,7 +103,6 @@ export class ViajesComponent implements AfterViewInit,OnInit {
         }
         this.dataSource = new MatTableDataSource(this.datosTabla);
         this.dataSource.paginator=this.paginator;
-        console.log(this.datosTabla);
       }else{
         if(this.selectOption==2){
           this.datosTabla=[];
@@ -86,7 +112,6 @@ export class ViajesComponent implements AfterViewInit,OnInit {
           }
           this.dataSource = new MatTableDataSource(this.datosTabla);
           this.dataSource.paginator=this.paginator;
-          console.log(this.datosTabla);
         }else{
           this.datosTabla=[];
           for(let i=0;i<data.length;i++){
@@ -96,50 +121,19 @@ export class ViajesComponent implements AfterViewInit,OnInit {
           }
           this.dataSource = new MatTableDataSource(this.datosTabla);
           this.dataSource.paginator=this.paginator;
-          console.log(this.datosTabla);
         }
       }
     })
   }
 
-  cambiarEstado(param:number, data:rowData){
-    this.travelOption=param;
-    this.modificarEstado(data);
-    this.ngOnInit();
+  ngOnInit(): void {
+    this.actualizarDatos();
   }
-
-  modificarEstado(param:rowData){
-    let cadete:number= Number(prompt("Ingrese el id del cadete a asignar", "0 si no posee cadete"));
-    let modificacion:ModifyTravel={
-      idViaje:param.idViaje,
-      newStatusTravel:this.travelOption,
-      userOperation:1,
-      idCadete:cadete,
-      isReasigned:false,
-      observations:"El administrador ha modificado este viaje",
-    }
-    console.log("estoy modificando el estado");
-    console.log(modificacion);
-    this.dataService.modificarViaje(modificacion).subscribe(resp=>{
-      console.log("Viaje modificado con exito");
-      Swal.fire({
-        icon: 'success',
-        title: '¡Estado de viaje modificado con exito!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    },error=>{
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: '¡No se pudo realizar el cambio de estado!',
-      })
-    }
-    );
+  
+  ngAfterViewInit(): void {
+      this.dataSource.paginator = this.paginator;
   }
-
 }
-
 
 function createNewRow(param:Viaje):rowData{
   return{

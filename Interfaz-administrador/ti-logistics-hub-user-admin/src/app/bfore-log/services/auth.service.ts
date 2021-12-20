@@ -10,7 +10,11 @@ export class AuthService {
 
   constructor(private http:HttpClient) { }
 
-  userIsLoged:boolean=false;
+  userIsLoged():boolean{
+    if(localStorage.getItem('currentUser-id')==null)
+      return false;
+    return true;
+  }
 
   login(mail:string,password:string):Observable<User>{
     return this.http.get<User>("/api/Login?email="+mail+"&password="+password);

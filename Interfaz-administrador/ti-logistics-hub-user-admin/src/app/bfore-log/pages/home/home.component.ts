@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('currentUser-id', JSON.stringify(user.id));
           localStorage.setItem('currentUser-name', user.fullName);
           localStorage.setItem('currentUser-email', user.email);
-          this.authService.userIsLoged=true;
           this.router.navigate(['../dashboard']);
           this.openSnackBar("Usuario ingresado con exito","Ok")
         }else{

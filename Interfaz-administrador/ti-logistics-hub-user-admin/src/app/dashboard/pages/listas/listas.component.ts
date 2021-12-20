@@ -32,10 +32,28 @@ export class ListasComponent implements OnInit,AfterViewInit {
     this.dataSource.paginator=this.paginator;
   }
 
-  ngOnInit(): void {
+  changeTypeUser(param:number){
+    this.typeUser=param;
+    this.actualizarDatos();
+  }
+
+  getRol(param:number):string{
+    return(rol[param-1]);
+  }
+
+  getNombre(param:string):string{
+    return( param.trim());
+  }
+
+  getVehiculo(param:NewUser):string{
+    if(param.vehicle==null)
+      return("---")
+    return param.vehicle.name;
+  }
+
+  actualizarDatos():void{
     this.dataService.getUsuarios().subscribe(users=>{
       this.data=users;
-      console.log(this.data);
       this.datosTabla=[];
       if(this.typeUser==1){//Opcion todos los usuarios
         for(let i=0; i<this.data.length;i++)
@@ -73,27 +91,12 @@ export class ListasComponent implements OnInit,AfterViewInit {
     })
   }
 
+  ngOnInit(): void {
+    this.actualizarDatos();
+  }
+
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
-  }
-
-  changeTypeUser(param:number){
-    this.typeUser=param;
-    this.ngOnInit();
-  }
-
-  getRol(param:number):string{
-    return(rol[param-1]);
-  }
-
-  getNombre(param:string):string{
-    return( param.trim());
-  }
-
-  getVehiculo(param:NewUser):string{
-    if(param.vehicle==null)
-      return("---")
-    return param.vehicle.name;
   }
 
   openDialog():void{
@@ -108,23 +111,36 @@ export class ListasComponent implements OnInit,AfterViewInit {
 
   modificarUsuario(param:NewUser):void{
     this.registerService.userModificado=param;
-    console.log("El usuario a modificar es");
-    console.log(this.registerService.userModificado)
     this.openDialog();
   }
 
   borarUsuario(param:NewUser):void{
     this.registerService.userModificado=param;
     this.registerService.userModificado.isDeleted=true;
-    this.registerService.setUser(this.registerService.userModificado).subscribe(resp=>{
-      Swal.fire({
-        icon: 'success',
-        title: 'El usuario fue eliminado con exito',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.ngOnInit();
+    let texto:string=`Estas a punto de borrar el usuario ${this.registerService.userModificado.fullName}`
+    Swal.fire({
+      title: '¡Atención!',
+      text: texto,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si, deseo eliminarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.registerService.setUser(this.registerService.userModificado).subscribe(resp=>{
+          Swal.fire({
+            icon: 'success',
+            title: 'El usuario fue eliminado con exito',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.actualizarDatos();
+        })
+      }
     })
+
+    
   }
 
 }

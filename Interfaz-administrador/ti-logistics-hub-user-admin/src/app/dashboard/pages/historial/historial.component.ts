@@ -53,7 +53,6 @@ export class HistorialComponent implements OnInit,AfterViewInit {
         }
         this.dataSource = new MatTableDataSource(this.datosTabla);
         this.dataSource.paginator=this.paginator;
-        console.log(this.datosTabla);
     })
   }
 

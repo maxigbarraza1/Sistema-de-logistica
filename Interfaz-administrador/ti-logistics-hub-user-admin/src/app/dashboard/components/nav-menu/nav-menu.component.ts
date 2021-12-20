@@ -21,7 +21,6 @@ export class NavMenuComponent implements OnInit {
   cerrarSesion():void{
     localStorage.clear();
     this.router.navigate(['home']);
-    this.authService.userIsLoged=false;
   }
 
 }
