@@ -41,6 +41,7 @@ Para la comunicación entre los componentes de **Angular** se implementaron los 
 
 ### ¿Cómo pruebo el sistema?
 Existen 3 usuarios, uno para cada actor dentro del sistema:
+
 1. Interfaz cliente:
 Usuario: maxi@cliente.com
 password:1234
