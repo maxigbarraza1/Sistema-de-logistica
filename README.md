@@ -32,7 +32,7 @@ visualizar la lista de usuarios(Clientes y Cadetes) con la opcion de modificar c
 El proyecto fue desarrollado con el framework de front-end **Angular 13** , se le dio estilos con el pre-procesador de css **SASS** y se utilizo como libreria de diseño **Angular Material**.
 
 Para el manejo de datos, en todo momento la aplicacion se comunica mediante **servicios** con programacion asincrona con una **API rest**.
-En los servicios, se implementan **Observables** de la libreria de RXJs para lograr un flujo de datos constante y ordenado.
+En los servicios, se implementa el modulo de HttpClient para comunicarse con el Backend y esta peticion http se solicita mediante **Observables** de la libreria de RXJs para lograr un flujo de datos constante y ordenado.
 
 Para la comunicación entre los componentes de **Angular** se implementaron los decoradores **@Input** y **@Output**.
 
