@@ -1,5 +1,5 @@
 # Sistema de Logistica
-Proyecto generado en el curso de Angular de la plataforma MindHub.
+Proyecto generado en el bootcamp de Angular de la plataforma MindHub.
 
 ---
 
@@ -42,7 +42,7 @@ Para la comunicación entre los componentes de **Angular** se implementaron los 
 ### ¿Cómo pruebo el sistema?
 Existen 3 usuarios, uno para cada actor dentro del sistema:
 
-1. Interfaz cliente:
+1.Interfaz cliente:
 Usuario: maxi@cliente.com
 password:1234
 
