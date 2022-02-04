@@ -1,6 +1,4 @@
 # Sistema de Logistica
-Proyecto generado en el bootcamp de Angular de la plataforma MindHub.
-
 ---
 
 ### ¿De que trata el proyecto?
