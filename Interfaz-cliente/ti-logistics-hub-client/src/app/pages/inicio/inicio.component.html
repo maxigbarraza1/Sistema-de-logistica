@@ -5,10 +5,10 @@
             <h1>¡Bienvenido {{this.usuario}}!</h1>
             <h3>¡Solicita un nuevo viaje o consulta el <br>estado de tus viajes!</h3>
             <div class="homeButtons">
-                <button mat-button id="homeBtnLeft">
+                <button mat-button id="homeBtnLeft" [routerLink]="['/solicitar-viaje']" routerLinkActive="router-link-active">
                     <span>Solicitar viaje</span>
                 </button>
-                <button mat-button id="homeBtnRight">
+                <button mat-button id="homeBtnRight" [routerLink]="['/estado-viaje']" routerLinkActive="router-link-active">
                     <span>Estado viaje</span>
                 </button>
             </div>

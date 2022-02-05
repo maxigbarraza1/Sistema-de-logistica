@@ -5,5 +5,5 @@ export interface tableInformation {
     modelo:string,
     estadoEquipo:string,
     estadoEnvio:string,
-    fechaFin?:Date,
+    fechaFin?:Date | string,
   }

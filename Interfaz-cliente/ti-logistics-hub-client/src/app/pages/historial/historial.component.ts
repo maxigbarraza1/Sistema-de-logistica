@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ModuleWithComponentFactories, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ModuleWithComponentFactories, ViewChild, OnInit } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -7,15 +7,6 @@ import { travelObject } from '../../models/travelObject';
 import { tableInformation } from '../../models/tableInformation';
 import { HistoryEquipmentService } from '../../services/historyDeviceState/history-equipment.service';
 import { travelDTO } from '../../models/travelDTO.model';
-
-export interface rowData {
-  fecha:Date,
-  marca:string,
-  modelo:string,
-  estadoEquipo:string,
-  estadoEnvio:string,
-  fechaFin?:Date
-}
 
 let estadoDelEnvio=['Pend. a retirar','Retiro asignado','Retirado',
                     'Pend. de reparacion','Reparado','Entrega asignada',
@@ -27,56 +18,27 @@ let estadoDelEnvio=['Pend. a retirar','Retiro asignado','Retirado',
   templateUrl: './historial.component.html',
   styleUrls: ['./historial.component.sass']
 })
-export class HistorialComponent implements AfterViewInit {
+export class HistorialComponent implements OnInit,AfterViewInit {
   displayedColumns: string[] = ['fecha','marca','modelo','estadoEquipo','estadoEnvio','fechaFin'];
-  dataSource: MatTableDataSource<rowData>;
+  dataSource: MatTableDataSource<tableInformation>;
 
   @ViewChild(MatPaginator) paginator:any; //No se debe usar 'any' pero no funciona si no.
   @ViewChild(MatSort) sort:any;
 
-  public viajes:travelObject[]=[];
-  public historial:travelObject[]=[];
+  public historial:tableInformation[]=[];
+  public idEquipos:number[]=[];
 
-  constructor(private travelState:TravelstatesService, private historyService:HistoryEquipmentService) {
-    // Create users
-    const userID:number=Number(localStorage.getItem('currentUser-id'));
-    let respuesta:string;
-    let respuestaEquipment:string;
-    let data:rowData[]=[];
-    let dataEquipment:rowData[]=[];
-    let equipmentId:number;
+  userID:number=Number(localStorage.getItem('currentUser-id'));
 
-    let row:rowData={
-      fecha:new Date(" "),
-      marca:'',
-      modelo:'',
-      estadoEquipo:'',
-      estadoEnvio:'',
-      fechaFin:new Date("" )
-    }
+  constructor(private travelState:TravelstatesService, 
+              private historyService:HistoryEquipmentService) 
+  {
+    this.dataSource = new MatTableDataSource(this.historial);
+    this.dataSource.paginator = this.paginator;
+  }
   
-    this.travelState.getTravels(userID).subscribe(resp=>{
-      respuesta=JSON.stringify(resp);
-      this.viajes=JSON.parse(respuesta);
-      for(let i=0;i<this.viajes.length;i++){
-        data.push(insertUserData(this.viajes[i]));
-      }
-    })
-
-    this.historyService.getEquipmentTravel(31).subscribe(resp=>{
-      respuestaEquipment=JSON.stringify(resp);
-      this.historial=JSON.parse(respuestaEquipment);
-        row.fecha = this.historial[0].travelEquipmentDTOs[0].operationDate;
-        row.marca= this.historial[0].mark;
-        row.modelo=this.historial[0].model;
-        row.estadoEnvio=estadoDelEnvio[this.historial[0].travelEquipmentDTOs[length].statusTravel]+1;
-        row.estadoEquipo=setEstadoEquipo(this.historial[0].travelEquipmentDTOs[length].statusTravel);
-        row.fechaFin=this.historial[0].travelEquipmentDTOs[length].operationDate;
-        dataEquipment.push(row);
-    })
-
-    console.log(dataEquipment);
-    this.dataSource = new MatTableDataSource(data);
+  ngOnInit(): void {
+    this.getIdEquiposCliente();
   }
 
   ngAfterViewInit() {
@@ -87,10 +49,30 @@ export class HistorialComponent implements AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getIdEquiposCliente(){
+    this.travelState.getTravels(this.userID).subscribe(resp=>{
+      let respuesta:string = JSON.stringify(resp);
+      let viajes:travelObject[]=JSON.parse(respuesta);
+      viajes.forEach(element => {
+        this.getHistorialEquipo(element.equipmentId);
+      });});
+    }
+
+  getHistorialEquipo(id:number){
+    let nuevo:tableInformation[]=[];
+    this.historyService.getEquipmentTravel(id).subscribe(resp=>{
+      let respuesta=JSON.stringify(resp);
+      let historial:travelObject=JSON.parse(respuesta);
+      this.historial.push(adaptarHistorial(historial));
+      this.dataSource = new MatTableDataSource(this.historial);
+      this.dataSource.paginator = this.paginator;
+
+    })
   }
 }
 //Funciones auxiliares
@@ -118,24 +100,26 @@ function setFechaFin(param:travelObject):Date{
   return param.travelEquipmentDTOs[9].operationDate
 }
 
-function insertUserData(param:travelObject):rowData{
-  return{
-    fecha:param.travelEquipmentDTOs[0].operationDate,
-    marca:param.mark,
-    modelo:param.model,
-    estadoEquipo:setEstadoEquipo(param.travelEquipmentDTOs[0].statusTravel),
-    estadoEnvio:estadoDelEnvio[param.travelEquipmentDTOs[0].statusTravel],
-    fechaFin:new Date(" "),
-  };
-}
-
-function createNewRow(param:travelObject):rowData{
-  return{
-    fecha:new Date(" "),
-    marca:param.mark,
-    modelo:" ",
-    estadoEquipo:" ",
-    estadoEnvio:" ",
-    fechaFin:new Date(" ")
-  };
+function adaptarHistorial(param:travelObject):tableInformation{
+  if(param.travelEquipmentDTOs[param.travelEquipmentDTOs.length-1].statusTravel == (7 | 8)){
+    return{
+      id:param.equipmentId,
+      fecha:param.travelEquipmentDTOs[0].operationDate,
+      marca:param.mark,
+      modelo:param.model,
+      estadoEquipo:setEstadoEquipo(param.travelEquipmentDTOs[param.travelEquipmentDTOs.length-1].statusTravel),
+      estadoEnvio:estadoDelEnvio[param.travelEquipmentDTOs[param.travelEquipmentDTOs.length-1].statusTravel],
+      fechaFin:param.travelEquipmentDTOs[param.travelEquipmentDTOs.length-1].operationDate,
+    }
+  }else{
+    return{
+      id:param.equipmentId,
+      fecha:param.travelEquipmentDTOs[0].operationDate,
+      marca:param.mark,
+      modelo:param.model,
+      estadoEquipo:setEstadoEquipo(param.travelEquipmentDTOs[param.travelEquipmentDTOs.length-1].statusTravel),
+      estadoEnvio:estadoDelEnvio[param.travelEquipmentDTOs[param.travelEquipmentDTOs.length-1].statusTravel],
+      fechaFin:"En curso"
+    }
+  }
 }

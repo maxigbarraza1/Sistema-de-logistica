@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tableInformation } from '../../models/tableInformation';
+import { travelObject } from '../../models/travelObject';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class HistoryEquipmentService {
 
   constructor(private http:HttpClient) { }
 
-  getEquipmentTravel(deviceId:number):Observable<tableInformation>{
-    return this.http.get<tableInformation>("api/Equipment/"+deviceId);
+  getEquipmentTravel(deviceId:number):Observable<travelObject>{
+    return this.http.get<travelObject>("http://logistica.asambleas.cl/api/Equipment/"+deviceId);
   }
 }

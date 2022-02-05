@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { TravelstatesService } from '../../services/travelStates/travelstates.service';
 import { travelObject } from '../../models/travelObject';
 import { DatePipe } from '@angular/common'
+import { tableInformation } from '../../models/tableInformation';
 
 export interface rowData {
   id?:number,
@@ -27,41 +28,29 @@ let estadoDelEnvio=['Pend. a retirar','Retiro asignado','Retirado',
   styleUrls: ['./estado-viaje.component.sass']
 })
 
-export class EstadoViajeComponent implements AfterViewInit {
+export class EstadoViajeComponent implements AfterViewInit,OnInit {
   displayedColumns: string[] = ['fecha','marca','modelo','estadoEquipo','estadoEnvio'];
-  dataSource: MatTableDataSource<rowData>;
+  dataSource: MatTableDataSource<tableInformation>;
 
   @ViewChild(MatPaginator) paginator:any; //No se debe usar 'any' pero no funciona si no.
   @ViewChild(MatSort) sort:any;
 
-  public viajes:travelObject[]=[];
+  public viajes:tableInformation[]=[];
+  userID:number=Number(localStorage.getItem('currentUser-id'));
+
 
   constructor(private travelState:TravelstatesService) {
-    // Create users
-    const userID:number=Number(localStorage.getItem('currentUser-id'));
-    let respuesta:string;
-    let data:rowData[]=[];
-    
-    // let newRow:rowData={
-    //   fecha: new Date(),
-    //   marca:'',
-    //   modelo:'',
-    //   estadoEnvio:'',
-    //   estadoEquipo:'',
-    // };
-    this.travelState.getTravels(userID).subscribe(resp=>{
-      respuesta=JSON.stringify(resp);
-      this.viajes=JSON.parse(respuesta);
-      for(let i=0;i<this.viajes.length;i++){
-        data.push(createNewRow(this.viajes[i]));
-      }
-    })
-    this.dataSource = new MatTableDataSource(data);
+    this.dataSource = new MatTableDataSource(this.viajes);
+    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  ngOnInit(): void {
+    this.getViajes();
   }
 
   applyFilter(event: Event) {
@@ -72,6 +61,19 @@ export class EstadoViajeComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  getViajes(){
+    this.travelState.getTravels(this.userID).subscribe(resp=>{
+      let respuesta=JSON.stringify(resp);
+      let viajes:travelObject[]=JSON.parse(respuesta);
+      viajes.forEach(element => {
+        this.viajes.push(adaptarViajes(element));
+      });
+      this.dataSource = new MatTableDataSource(this.viajes);
+      this.dataSource.paginator = this.paginator;
+
+    })
+  }
 }
 //Funciones auxiliares
 function setEstadoEquipo(n:number):string{
@@ -79,7 +81,8 @@ function setEstadoEquipo(n:number):string{
     return("reparado");
   return("A reparar");
 }
-function createNewRow(param:travelObject):rowData{
+
+function adaptarViajes(param:travelObject):tableInformation{
   return{
     id:param.equipmentId,
     fecha:param.travelEquipmentDTOs[0].operationDate,

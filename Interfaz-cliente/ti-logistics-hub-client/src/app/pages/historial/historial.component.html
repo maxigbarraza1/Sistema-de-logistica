@@ -13,32 +13,32 @@
 
             <ng-container matColumnDef="fecha">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-              <td mat-cell *matCellDef="let rowData"> {{rowData.fecha}} </td>
+              <td mat-cell *matCellDef="let tableInformation"> {{tableInformation.fecha | date:'shortDate'}} </td>
             </ng-container>
         
             <ng-container matColumnDef="marca">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Marca </th>
-              <td mat-cell *matCellDef="let rowData"> {{rowData.marca}} </td>
+              <td mat-cell *matCellDef="let tableInformation"> {{tableInformation.marca}} </td>
             </ng-container>
         
             <ng-container matColumnDef="modelo">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </th>
-              <td mat-cell *matCellDef="let rowData"> {{rowData.modelo}} </td>
+              <td mat-cell *matCellDef="let tableInformation"> {{tableInformation.modelo}} </td>
             </ng-container>
         
             <ng-container matColumnDef="estadoEquipo">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado del equipo </th>
-              <td mat-cell *matCellDef="let rowData"> {{rowData.estadoEquipo}} </td>
+              <td mat-cell *matCellDef="let tableInformation"> {{tableInformation.estadoEquipo}} </td>
             </ng-container>
 
             <ng-container matColumnDef="estadoEnvio">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado del envio </th>
-              <td mat-cell *matCellDef="let rowData"> {{rowData.estadoEnvio}} </td>
+              <td mat-cell *matCellDef="let tableInformation"> {{tableInformation.estadoEnvio}} </td>
             </ng-container>
 
             <ng-container matColumnDef="fechaFin">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha entregado </th>
-              <td mat-cell *matCellDef="let rowData"> {{rowData.fechaFin}} </td>
+              <td mat-cell *matCellDef="let tableInformation"> {{tableInformation.fechaFin | date:'shortDate' }} </td>
             </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
