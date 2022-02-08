@@ -2,7 +2,7 @@
     <app-header-landing></app-header-landing>
     <div class="containerForm">
         <h2>¡Inicia sesion!</h2>
-        <form class="formSignUp" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <form class="formSignUp" [formGroup]="registerForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>Email: </mat-label>
@@ -20,7 +20,7 @@
                 <a href="" id="hasAccountText">¿No tienes una cuenta? <span>Registrate</span></a>
             </div>
         </form>
-        
+        <app-spinner *ngIf="loading"></app-spinner>
     </div>
     <app-footer-landing></app-footer-landing>
 </main>

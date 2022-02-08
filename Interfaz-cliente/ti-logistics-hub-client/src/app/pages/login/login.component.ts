@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
+  loading=false;
   constructor(private account:AccountService, private router:Router) { }
 
   ngOnInit(): void {
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.userlog=this.registerForm.value;
+    this.loading=true;
     this.account.login(this.userlog.email,this.userlog.password).subscribe(
       resp=>{
         // console.log(resp); me dice que datos me trae del usuario
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('currentUser-address',resp.address);
 
         this.account.isLoggedIn=true;
+        this.loading=false;
         if(this.account.isLoggedIn=true){
           this.router.navigate(['inicio']);
           Swal.fire({
@@ -48,6 +51,7 @@ export class LoginComponent implements OnInit {
           })
         }
       }, error =>{
+        this.loading=false;
         console.log(error);
         if(error.status='404')
           console.log('contrasena papu')//Hacer un ALERT QUE LE ERRO EN LOS DATOS

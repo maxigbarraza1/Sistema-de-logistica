@@ -12,6 +12,6 @@ export class HistoryEquipmentService {
   constructor(private http:HttpClient) { }
 
   getEquipmentTravel(deviceId:number):Observable<travelObject>{
-    return this.http.get<travelObject>("http://logistica.asambleas.cl/api/Equipment/"+deviceId);
+    return this.http.get<travelObject>("api/Equipment/"+deviceId);
   }
 }

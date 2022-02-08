@@ -11,6 +11,6 @@ export class TravelstatesService {
   constructor(private http:HttpClient) { }
 
   getTravels(clientId:number):Observable<tableInformation>{
-    return this.http.get<tableInformation>("http://logistica.asambleas.cl/api/Equipment?clientId="+clientId);    
+    return this.http.get<tableInformation>("api/Equipment?clientId="+clientId);    
   }
 }

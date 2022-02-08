@@ -37,9 +37,11 @@ export class EstadoViajeComponent implements AfterViewInit,OnInit {
 
   public viajes:tableInformation[]=[];
   userID:number=Number(localStorage.getItem('currentUser-id'));
+  loading=false;
 
 
   constructor(private travelState:TravelstatesService) {
+    this.loading=true;
     this.dataSource = new MatTableDataSource(this.viajes);
     this.dataSource.paginator = this.paginator;
   }
@@ -63,6 +65,7 @@ export class EstadoViajeComponent implements AfterViewInit,OnInit {
   }
 
   getViajes(){
+    this.loading=true;
     this.travelState.getTravels(this.userID).subscribe(resp=>{
       let respuesta=JSON.stringify(resp);
       let viajes:travelObject[]=JSON.parse(respuesta);
@@ -71,7 +74,7 @@ export class EstadoViajeComponent implements AfterViewInit,OnInit {
       });
       this.dataSource = new MatTableDataSource(this.viajes);
       this.dataSource.paginator = this.paginator;
-
+      this.loading=false;
     })
   }
 }

@@ -4,12 +4,13 @@ import { HeaderLandingComponent } from './header-landing/header-landing.componen
 import { FooterLandingComponent } from './footer-landing/footer-landing.component';
 import { MaterialModule } from '../material.module';
 import { AppRoutingModule } from '../app-routing.module';
-
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     HeaderLandingComponent,
     FooterLandingComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +20,7 @@ import { AppRoutingModule } from '../app-routing.module';
   exports:[
     HeaderLandingComponent,
     FooterLandingComponent,
+    SpinnerComponent,
   ]
 })
 export class ComponentsModule { }

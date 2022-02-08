@@ -29,10 +29,11 @@ export class HistorialComponent implements OnInit,AfterViewInit {
   public idEquipos:number[]=[];
 
   userID:number=Number(localStorage.getItem('currentUser-id'));
-
+  loading=false;
   constructor(private travelState:TravelstatesService, 
               private historyService:HistoryEquipmentService) 
   {
+    this.loading=true;
     this.dataSource = new MatTableDataSource(this.historial);
     this.dataSource.paginator = this.paginator;
   }
@@ -63,15 +64,15 @@ export class HistorialComponent implements OnInit,AfterViewInit {
       });});
     }
 
-  getHistorialEquipo(id:number){
-    let nuevo:tableInformation[]=[];
+    getHistorialEquipo(id:number){
+    this.loading=true;
     this.historyService.getEquipmentTravel(id).subscribe(resp=>{
       let respuesta=JSON.stringify(resp);
       let historial:travelObject=JSON.parse(respuesta);
       this.historial.push(adaptarHistorial(historial));
       this.dataSource = new MatTableDataSource(this.historial);
       this.dataSource.paginator = this.paginator;
-
+      this.loading=false;
     })
   }
 }

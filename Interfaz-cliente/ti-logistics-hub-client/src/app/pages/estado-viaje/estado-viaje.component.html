@@ -2,7 +2,7 @@
     <app-header-landing></app-header-landing>
     <div class="main-container">
         <h2>Estado de tus viajes</h2>
-        <div class="table-container">
+        <div class="table-container" *ngIf="!loading">
           <mat-form-field appearance="standard">
             <mat-label>Filter</mat-label>
             <input matInput (keyup)="applyFilter($event)" #input>
@@ -47,6 +47,7 @@
           </div>
           
         </div>
+        <app-spinner *ngIf="loading"></app-spinner>
     </div>
     <app-footer-landing></app-footer-landing>
 </main>

@@ -12,7 +12,7 @@ export class AccountService {
   constructor(private http:HttpClient, private router:Router) { }
 
   login(username:string,password:string): Observable<User>{
-    return this.http.get<User>("http://logistica.asambleas.cl/api/Login?email="+username+"&password="+password);    
+    return this.http.get<User>("api/Login?email="+username+"&password="+password);    
   }
 
   logout(){
