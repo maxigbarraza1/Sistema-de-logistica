@@ -11,22 +11,29 @@ import { map } from 'rxjs';
 })
 export class HistorialComponent implements OnInit {
 
+  loading=false;
+  idCadete:number=Number(localStorage.getItem('currentUser-id'));
   public historial:Viaje[]=[];
   constructor(private dataService:DataService, private accountService:AccountService) { }
 
   ngOnInit(): void {
-    let idCadete:number=Number(localStorage.getItem('currentUser-id'));
+    this.getHistorial();
+  }
+
+  getHistorial(){
+    this.loading=true;
     this.dataService.getViajesEntregadosLaboratorio().pipe(
-      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===idCadete))
+      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===this.idCadete))
       ).subscribe(entregadosLaboratorio=>this.historial=entregadosLaboratorio);
 
     this.dataService.getViajesEntregadosCliente().pipe(
-      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===idCadete))
+      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===this.idCadete))
       ).subscribe(entregadosCliente=>{
         this.historial=this.historial.concat(entregadosCliente);
         this.historial.sort(function(a,b){
           return new Date(a.creationDate).valueOf() - new Date(b.creationDate).valueOf();
         });
+        this.loading=false;
       });
   }
   

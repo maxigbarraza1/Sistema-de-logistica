@@ -21,9 +21,10 @@
                     <mat-option value="3" (click)="changeOption(3)">Viajes en curso</mat-option>
                 </mat-select>
             </mat-form-field>
-            <div>
+            <div *ngIf="!loading">
                 <app-viaje [disponibles]="disponibles" [aceptados]="aceptados" [opcion]="selectOption"></app-viaje>
             </div>
+            <app-spinner *ngIf="loading"></app-spinner>
         </div>
     </div>
 </main>

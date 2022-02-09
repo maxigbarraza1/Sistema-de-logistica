@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
+  loading=false;
+
   constructor(private loginservice:AuthService, private router:Router) { }
 
   ngOnInit(): void {
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
   })
 
   onSubmit(){
+    this.loading=true;
     this.userlog=this.registerForm.value;
     this.loginservice.login(this.userlog.email,this.userlog.password).subscribe(
       resp=>{
@@ -37,6 +40,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('currentUser-address',resp.address);
             
           this.loginservice.isLoggedIn=true;
+          this.loading=false;
           if(this.loginservice.isLoggedIn=true)
             this.router.navigate(['../dashboard']);
             Swal.fire({
@@ -54,6 +58,7 @@ export class LoginComponent implements OnInit {
           })
         }
       }, error =>{
+        this.loading=false;
         if(error.status='404'){
           Swal.fire({
             icon: 'error',

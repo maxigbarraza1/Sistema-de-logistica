@@ -9,6 +9,7 @@ import { FooterComponent } from '../components/footer/footer.component';
 
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     RouterModule,
     ReactiveFormsModule,
+    SharedModule
     // FooterComponent
   ]
 })

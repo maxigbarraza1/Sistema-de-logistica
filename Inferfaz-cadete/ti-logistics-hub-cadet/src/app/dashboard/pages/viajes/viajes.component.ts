@@ -1,11 +1,8 @@
-import { Component, OnInit, ɵɵsetComponentScope } from '@angular/core';
-import { ConnectableObservable, forkJoin, map, Observable, Observer } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { map,} from 'rxjs';
 import { Viaje } from '../../models/travel.model';
 import { DataService } from '../../services/data.service';
-import { InfoTarjeta } from '../../models/tarjetaViaje.model';
 import { AccountService } from '../../services/account.service';
-
-
 
 @Component({
   selector: 'app-viajes',
@@ -15,16 +12,21 @@ import { AccountService } from '../../services/account.service';
 export class ViajesComponent implements OnInit {
 
   public aceptados:Viaje[]=[];
-  public disponibles:Viaje[]=[];  
+  public disponibles:Viaje[]=[]; 
+
+  loading=true;
+  idCadete:number=Number(localStorage.getItem('currentUser-id'));
 
   public selectOption:number=1;
   constructor(private dataService:DataService, private accountService:AccountService) {
   }
   
   ngOnInit(): void {
-    let idCadete:number=Number(localStorage.getItem('currentUser-id'));
-    //(Number(localStorage.getItem('currentUser-id')));
-    
+    this.getViajesDisponibles();
+  }
+
+  getViajesDisponibles(){
+    this.loading=true;
     this.dataService.getReparados().subscribe(
       viajesReparados=>this.disponibles=viajesReparados);
     this.dataService.getPendientes().subscribe(
@@ -36,28 +38,29 @@ export class ViajesComponent implements OnInit {
       });
 
     this.dataService.getRetirosAsignado().pipe(
-      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===idCadete))
+      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===this.idCadete))
                       ).subscribe(resp=>this.aceptados=resp);
 
     this.dataService.getRetirados().pipe(
-      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===idCadete))
+      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===this.idCadete))
                       ).subscribe(resp=>this.aceptados=this.aceptados.concat(resp));
 
     this.dataService.getEntregasAsignadas().pipe(
-      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===idCadete))
+      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===this.idCadete))
                       ).subscribe(resp=>this.aceptados=this.aceptados.concat(resp));
 
     this.dataService.getPendienteEntrega().pipe(
-      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===idCadete))
-                      ).subscribe(resp=>this.aceptados=this.aceptados.concat(resp));
-    
+      map(data=>data.filter(viaje=> viaje.travelEquipmentDTOs[viaje.travelEquipmentDTOs.length-1].cadete?.id===this.idCadete))
+                      ).subscribe(resp=>{
+                        this.aceptados=this.aceptados.concat(resp)
+                        this.loading=false}
+                                );
   }
 
   changeOption(param:number){
     this.selectOption=param;
     console.log(this.selectOption);
-    this.ngOnInit();
-
+    this.getViajesDisponibles();
   }
   logout():void{
     this.accountService.logout();

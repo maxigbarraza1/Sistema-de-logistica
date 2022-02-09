@@ -3,7 +3,7 @@
         <img src="../assets/logo.svg"> 
     </div>
 
-    <div class="container" id="form-container">
+    <div class="container" id="form-container" *ngIf="!loading">
         <h2>¡Inicia sesion!</h2>
         <form class="formSignUp" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <p>
@@ -24,6 +24,7 @@
             </div>
         </form>
     </div>
+    <app-spinner *ngIf="loading"></app-spinner>
     <div class="container" id="img-container">
         <img src="../assets/loginArt.svg" alt="">
     </div>

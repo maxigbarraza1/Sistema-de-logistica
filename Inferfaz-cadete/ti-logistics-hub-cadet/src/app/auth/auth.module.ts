@@ -5,6 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 import { PagesModule } from './pages/pages.module';
 import { MaterialModule } from '../material.module';
+import { SharedModule } from '../shared/shared.module';
 // import { FooterComponent } from './components/footer/footer.component';
 
 
@@ -15,7 +16,8 @@ import { MaterialModule } from '../material.module';
     CommonModule,
     AuthRoutingModule,
     PagesModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule,
   ],
   exports:[
   ]
