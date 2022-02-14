@@ -52,3 +52,5 @@ password:1234
 Usuario: maxi@admin.com
 password:1234
 
+**IMPORTANTE: ejecutar el proyecto de manera local con 'npm start'**
+
